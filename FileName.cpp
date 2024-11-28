@@ -27,19 +27,27 @@ public:
     }
 
     
-    MyString(bool Input) {
-        if (Input == true) {
-            cout << "input str: ";
-            char input[100];
-            cin.getline(input, 100); 
-            size = strlen(input); 
-            str = new char[size + 1]; 
+    MyString(True) {
+        
+        cout << "input str: ";
+        char input[100];
+        cin.getline(input, 100); 
+        size = strlen(input); 
+        str = new char[size + 1]; 
 
-            for (size_t i = 0; i < size; i++) {
-                str[i] = input[i];
-            }
-            str[size] = '\0';
+        for (size_t i = 0; i < size; i++) {
+            str[i] = input[i];
         }
+        str[size] = '\0';
+        
+    }
+    MyString(const MyString& other) { // Конструктор копирования
+        size = other.size;
+        str = new char[size + 1];
+        for (int i = 0; i < size; i++) {
+            str[i] = other.str[i];
+        }
+        str[size] = '\0';
     }
 
     char* getStr() {
@@ -79,6 +87,10 @@ int main() {
     MyString initializedStr(true);
     cout << "initialized str: " << initializedStr.getStr() << endl;
     cout << "size: " << initializedStr.getSize() << endl;
+
+    MyString copiedStr = initializedStr; // Сам конструктор копирования
+    cout << "copied str: " << copiedStr.getStr() << endl;
+    cout << "size: " << copiedStr.getSize() << endl;
 
     return 0;
 }
